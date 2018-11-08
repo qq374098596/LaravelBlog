@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
+use App\Http\Model\Category;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,31 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        echo 1122;
+        $category = (new Category)->tree();
+        //dd($category);
+        //$data = $this->getTree($category,'cate_name','cate_id','cate_pid');
+        //dd($data);
+        return view('admin.category.index')->with('data',$category);
+    }
+
+    public function changeOrder()
+    {
+        $input = Input::all();
+        $cate = Category::find($input['cate_id']);
+        $cate->cate_order = $input['cate_order'];
+        $re = $cate->update();
+        if ($re) {
+            $data = [
+                'status'=>0,
+                'msg'=>'分类排序更新成功',
+            ];
+        }else{
+            $data = [
+                'status'=>1,
+                'msg'=>'分类排序更新失败',
+            ];
+        }
+        return $data;
     }
 
     /**

@@ -26,6 +26,8 @@ Route::group(['domain'=>'admin.laravel.com','namespace'=>'Admin','middleware'=>[
     Route::get('/', 'IndexController@index');//后台登陆路由
     Route::get('quit', 'LoginController@quit');
     Route::any('pass', 'IndexController@pass');
+
+    Route::post('cate/changeorder','CategoryController@changeOrder');
     Route::resource('category', 'CategoryController');
 });
 
