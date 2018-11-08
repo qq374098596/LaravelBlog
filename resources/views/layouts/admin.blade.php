@@ -728,6 +728,7 @@
 
 <!-- jQuery 3 -->
 <script src="{{asset('static/admin')}}/jquery/dist/jquery.min.js"></script>
+<script src="{{asset('static/org')}}/layer/layer.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('static/admin')}}/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->

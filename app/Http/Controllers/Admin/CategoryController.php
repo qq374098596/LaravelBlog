@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use App\Http\Model\Category;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -23,6 +24,10 @@ class CategoryController extends Controller
         return view('admin.category.index')->with('data',$category);
     }
 
+    /**
+     * 异步修改排序
+     * @return [type] [description]
+     */
     public function changeOrder()
     {
         $input = Input::all();
@@ -50,7 +55,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $data = Category::where('cate_pid',0)->get();
+        return view('admin.category.add',compact('data'));
     }
 
     /**
@@ -61,7 +67,25 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($input = Input::all()) {
+            $rules = [
+                'cate_name' => 'required',
+                'cate_pid' => 'required',
+            ];
+            $massages = [
+                'cate_name.required' => '分类名称不能为空',
+                'cate_pid.required' => ''
+            ];
+            $valid = Validator::make($input,$rules,$massages);
+            if ($valid->passes()) {
+                
+            }else{
+                return back()->withErrors($valid);
+            }
+        }else{
+            
+        }
+        
     }
 
     /**

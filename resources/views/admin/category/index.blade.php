@@ -8,7 +8,7 @@
     
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+    <li><a href="/"><i class="fa fa-dashboard"></i> 首页</a></li>
     <!-- <li><a href="#">Tables</a></li> -->
     <li class="active">全部分类</li>
   </ol>
@@ -18,6 +18,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
+      	<a href="{{URL('category/create')}}"><h3 class="box-title"><i class="fa fa-plus"></i>新增分类</h3></a>
 
         <div class="box-tools">
           <div class="input-group input-group-sm" style="width: 150px;">
@@ -84,9 +85,9 @@
 		console.log(cate_id);
 		$.post("{{url('cate/changeorder')}}",{'_token':'{{csrf_token()}}','cate_order':cate_order,'cate_id':cate_id},function(data){
 			if (data.status==0) {
-				alert(data.msg)
+				layer.msg(data.msg,{icon:6});
 			}else{
-				alert(data.msg)
+				layer.msg(data.msg,{icon:5});
 			}
 		})
 	}
