@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Http\Model\User;
 
 class IndexController extends Controller
 {
@@ -27,7 +31,37 @@ class IndexController extends Controller
 
     public function pass()
     {
-        return view('admin.pass');
+        if ($input = Input::all()) {
+            //dd($input);
+            $rules = [
+                'password'=>'required|between:6,20|confirmed',
+            ];
+            $message = [
+                'password.required'=>'新密码不能为空',
+                'password.between'=>'新密码必须6-20位',
+                'password.confirmed'=>'新密码和确认密码不一致',
+            ];
+
+            $valid = Validator::make($input,$rules,$message);
+            //dd($valid);
+            if ($valid->passes()) {
+                $user = User::first();
+                //dd($user);
+                //$_pass = Crypt::decrypt($user->password);
+                // echo $_pass;
+                if (Crypt::decrypt($user->password) == $input['password_o']) {
+                    $user->password = Crypt::encrypt($input['password']);
+                    $user->update();
+                    return redirect('/');
+                }else{
+                    return back()->with('errors','原密码错误');
+                }
+            }else{
+                return back()->withErrors($valid);
+            }
+        }else{
+            return view('admin.pass');
+        }
     }
 
     /**

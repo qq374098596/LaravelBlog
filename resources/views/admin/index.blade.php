@@ -84,6 +84,32 @@
       <div class="row">
         <!-- Left col -->
         <section class="col-lg-7 connectedSortable">
+          <div class="box box-primary">
+            <div class="box-header">
+              <i class="ion ion-clipboard"></i>
+              <h3 class="box-title">系统基本信息</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <dl class="dl-horizontal">
+                <dt>操作系统</dt>
+                <dd>{{PHP_OS}}</dd>
+                <dt>运行环境</dt>
+                <dd>{{$_SERVER['SERVER_SOFTWARE']}} PHP:{{PHP_VERSION}}</dd>
+                <dt>版本</dt>
+                <dd>V-1.0</dd>
+                <dt>上传附件限制</dt>
+                <dd>{{get_cfg_var ("upload_max_filesize")}}</dd>
+                <dt>当前时间</dt>
+                <dd>{{date('Y年m月d日 H时i分s秒')}}</dd>
+                <dt>服务器域名/IP</dt>
+                <dd>{{$_SERVER['HTTP_HOST']}} / {{$_SERVER['REMOTE_ADDR']}}</dd>
+                <dt>Host</dt>
+                <dd>{{$_SERVER['REMOTE_ADDR']}}</dd>
+              </dl>
+            </div>
+            <!-- /.box-body -->
+          </div>
           <!-- Custom tabs (Charts with tabs)-->
           <div class="nav-tabs-custom">
             <!-- Tabs within a box -->
@@ -523,3 +549,44 @@
 
 @endsection
 
+@section('script')
+
+<!-- jQuery 3 -->
+<!-- <script src="{{asset('static/admin')}}/jquery/dist/jquery.min.js"></script> -->
+<!-- jQuery UI 1.11.4 -->
+<script src="{{asset('static/admin')}}/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<!-- <script src="{{asset('static/admin')}}/bootstrap/dist/js/bootstrap.min.js"></script> -->
+<!-- Morris.js charts -->
+<script src="{{asset('static/admin')}}/raphael/raphael.min.js"></script>
+<script src="{{asset('static/admin')}}/morris.js/morris.min.js"></script>
+<!-- Sparkline -->
+<script src="{{asset('static/admin')}}/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<!-- jvectormap -->
+<script src="{{asset('static/admin')}}/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="{{asset('static/admin')}}/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="{{asset('static/admin')}}/jquery-knob/dist/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="{{asset('static/admin')}}/moment/min/moment.min.js"></script>
+<script src="{{asset('static/admin')}}/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- datepicker -->
+<script src="{{asset('static/admin')}}/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="{{asset('static/admin')}}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="{{asset('static/admin')}}/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<!-- <script src="{{asset('static/admin')}}/fastclick/lib/fastclick.js"></script> -->
+<!-- AdminLTE App -->
+<!-- <script src="{{asset('static/admin')}}/dist/js/adminlte.min.js"></script> -->
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{asset('static/admin')}}/dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{asset('static/admin')}}/dist/js/demo.js"></script>
+
+@endsection
