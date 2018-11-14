@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Model\Category;
 use Illuminate\Support\Facades\Input;
+use App\Http\Model\Article;
+use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
 {
@@ -39,7 +41,29 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = Input::except('_token');
+        $input['art_time'] = time();
+        $rules = [
+            'art_title' => 'required',
+            'art_content' => 'required'
+        ];
+        $massages = [
+            'art_title.required' => '文章名称不能为空！',
+            'art_content.required' => '文章内容不能为空！'
+        ];
+        $valid = Validator::make($input,$rules,$massages);
+        if ($valid->passes()) {
+            $re = Article::create($input);
+            if ($re) {
+                return redirect('article');
+            }else{
+                return back()->with('errors','数据添加失败，请重试！');
+            }
+        }else{
+            return back()->withErrors($valid);
+        }
+        
+        
     }
 
     /**

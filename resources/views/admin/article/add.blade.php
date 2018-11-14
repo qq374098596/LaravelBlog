@@ -28,7 +28,7 @@
 								@endif
 							</div>
 						@endif
-						<form class="form-horizontal" action="{{url('category')}}" method="post">
+						<form class="form-horizontal" action="{{url('article')}}" method="post">
 						{{csrf_field()}}
 							<div class="box-body">
     							<div class="form-group">
@@ -43,7 +43,7 @@
       								</div>
     							</div>
     							<div class="form-group">
-      								<label class="col-sm-2 control-label"> 文章标题</label>
+      								<label class="col-sm-2 control-label"><i style="color:red">*</i> 文章标题</label>
       								<div class="col-sm-10">
         								<input type="text" name="art_title" class="form-control">
       								</div>
@@ -82,7 +82,7 @@
       								</div>
     							</div>
     							<div class="form-group">
-      								<label class="col-sm-2 control-label"> 文章内容</label>
+      								<label class="col-sm-2 control-label"><i style="color:red">*</i> 文章内容</label>
       								<div class="col-sm-10">
       									<script type="text/javascript" charset="utf-8" src="{{asset('static/org')}}/ueditor/ueditor.config.js"></script>
     									<script type="text/javascript" charset="utf-8" src="{{asset('static/org')}}/ueditor/ueditor.all.min.js"> </script>
