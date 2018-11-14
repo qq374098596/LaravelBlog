@@ -51,14 +51,14 @@
             <td>{{$v->_cate_name}}</td>
             <td>{{$v->cate_title}}</td>
             <td>2</td>
-            <td><span class="label label-success">编辑</span> <span class="label label-warning">删除</span></td>
+            <td><a href="{{url('category/'.$v->cate_id.'/edit')}}"><span class="label label-warning">修改</span></a> <a href="javascript:;" onclick="delCate({{$v->cate_id}},{{$v->cate_pid}})"><span class="label label-danger">删除</span></a></td>
           </tr>
           @endforeach
           
         </table>
       </div>
       <!-- /.box-body -->
-      <div class="box-footer clearfix">
+      <!-- <div class="box-footer clearfix">
         <ul class="pagination pagination-sm no-margin pull-right">
           <li><a href="#">&laquo;</a></li>
           <li><a href="#">1</a></li>
@@ -66,7 +66,7 @@
           <li><a href="#">3</a></li>
           <li><a href="#">&raquo;</a></li>
         </ul>
-      </div>
+      </div> -->
     </div>
     <!-- /.box -->
   </div>
@@ -79,6 +79,7 @@
 <!-- Slimscroll -->
 <script src="{{asset('static/admin')}}/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <script>
+//异步更新
 	function changeOrder(obj,cate_id){
 		var cate_order = $(obj).val();
 		console.log(cate_order);
@@ -91,5 +92,26 @@
 			}
 		})
 	}
+
+  //删除分类
+  function delCate(cate_id,cate_pid){
+    //alert(cate_id)
+    layer.confirm('您确定要删除这个分类吗?',{
+      btn:['确定','取消']
+    },function(){
+      $.post("{{url('category')}}/"+cate_id,{'_token':'{{csrf_token()}}','_method':'delete'},function(data){
+        if (data.status==0) {
+          layer.msg(data.msg,{icon:6});
+          location.href = location.href;
+        }else if(data.status==11){
+          layer.msg(data.msg,{icon:5});
+        }else{
+          layer.msg(data.msg,{icon:5});
+        }
+      })
+    },function(){
+
+    })
+  }
 </script>
 @endsection

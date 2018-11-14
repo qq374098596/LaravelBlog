@@ -347,6 +347,36 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
+            <span>分类管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{url('category')}}"><i class="fa fa-circle-o"></i>全部分类</a></li>
+            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
+            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>文章管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{url('article')}}"><i class="fa fa-circle-o"></i>全部文章</a></li>
+            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
+            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
             <span>布局选项</span>
             <span class="pull-right-container">
               <span class="label label-primary pull-right">4</span>
@@ -729,6 +759,10 @@
 <!-- jQuery 3 -->
 <script src="{{asset('static/admin')}}/jquery/dist/jquery.min.js"></script>
 <script src="{{asset('static/org')}}/layer/layer.js"></script>
+<!-- <script src="{{asset('static/org')}}/uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
+ -->
+<!-- <script src="{{asset('static/org')}}/bootstrap-fileinput/js/fileinput.min.js"></script> -->
+<!-- <script src="{{asset('static/org')}}/bootstrap-fileinput/js/locales/zh.js"></script> -->
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('static/admin')}}/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->

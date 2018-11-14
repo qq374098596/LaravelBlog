@@ -29,6 +29,9 @@ Route::group(['domain'=>'admin.laravel.com','namespace'=>'Admin','middleware'=>[
 
     Route::post('cate/changeorder','CategoryController@changeOrder');
     Route::resource('category', 'CategoryController');
+    Route::any('upload', 'UploadController@upload');
+    Route::resource('article', 'ArticleController');
+
 });
 
 Route::get('/','Home\IndexController@index');

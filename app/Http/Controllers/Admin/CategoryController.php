@@ -56,6 +56,7 @@ class CategoryController extends Controller
     public function create()
     {
         $data = Category::where('cate_pid',0)->get();
+        //compact 向视图中传参
         return view('admin.category.add',compact('data'));
     }
 
@@ -67,25 +68,27 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        if ($input = Input::all()) {
-            $rules = [
-                'cate_name' => 'required',
-                'cate_pid' => 'required',
-            ];
-            $massages = [
-                'cate_name.required' => '分类名称不能为空',
-                'cate_pid.required' => ''
-            ];
-            $valid = Validator::make($input,$rules,$massages);
-            if ($valid->passes()) {
-                
+        //except：排除
+        $input = Input::except('_token');
+        $rules = [
+            'cate_name' => 'required',
+            'cate_order' => 'required',
+        ];
+        $massages = [
+            'cate_name.required' => '分类名称不能为空',
+            'cate_order.required' => '排序不能为空'
+        ];
+        $valid = Validator::make($input,$rules,$massages);
+        if ($valid->passes()) {
+            $re = Category::create($input);
+            if($re){
+                return redirect('category');
             }else{
-                return back()->withErrors($valid);
+                return back()->with('errors','数据添加失败，请重试！');
             }
         }else{
-            
-        }
-        
+            return back()->withErrors($valid);
+        } 
     }
 
     /**
@@ -105,9 +108,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($cate_id)
     {
-        //
+        $field = Category::find($cate_id);
+        $data = Category::where('cate_pid',0)->get();
+        return view('admin.category.edit',compact('field','data'));
     }
 
     /**
@@ -117,9 +122,28 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $cate_id)
     {
-        //
+        $input = Input::except('_token','_method');
+        $rules = [
+            'cate_name' => 'required',
+            'cate_order' => 'required',
+        ];
+        $massages = [
+            'cate_name.required' => '分类名称不能为空',
+            'cate_order.required' => '排序不能为空',
+        ];
+        $valid = Validator::make($input,$rules,$massages);
+        if ($valid->passes()) {
+            $re = Category::where('cate_id',$cate_id)->update($input);
+            if ($re) {
+                return redirect('category');
+            }else{
+                return back()->with('errors','数据更新失败，请重试');
+            }
+        }else{
+            return back()->withErrors($valid);
+        }
     }
 
     /**
@@ -128,8 +152,31 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($cate_id)
     {
-        //
+        $input = Input::except('_token','_method');
+        $count = Category::where('cate_pid',$cate_id)->count();
+        //dd($res);
+        if ($count == 0) {
+            $re = Category::where('cate_id',$cate_id)->delete();
+            if($re){
+                $data = [
+                    'status' => 0,
+                    'msg' => '分类删除成功'
+                ];
+            }else{
+                $data = [
+                    'status' => 1,
+                    'msg' => '分类删除失败，请重试'
+                ];
+            }
+        }else{
+            $data = [
+                'status' => 11,
+                'msg' => '分类下有子分类，无法删除,请先删除子分类'
+            ];
+        }
+        
+        return $data;
     }
 }

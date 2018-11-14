@@ -9,6 +9,8 @@ class Category extends Model
     protected $table = 'category';
     protected $primaryKey = 'cate_id';
     public $timestamps = false;
+    //过滤字段 guarded(黑名单，不可以写入)，fillable(白名单，定义可写入/修改的字段)
+    protected $guarded = [];
 
     /**
      * 可以使用静态方法

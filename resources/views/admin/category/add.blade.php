@@ -18,9 +18,15 @@
 					<div class="box-header">
 						<h5 class="box-title">快捷操作</h5>
 						@if(count($errors)>0)
-							@foreach($errors->all() as $error)
-								{{$error}}
-							@endforeach
+							<div style="background:#FDF7E1;margin-left:10px;padding:10px;font-size:14px;">
+								@if(is_object($errors))
+									@foreach($errors->all() as $error)
+										<p style="margin:0;padding:0"><i class="glyphicon 	glyphicon-remove-circle"></i> 				{{$error}}</p>
+									@endforeach
+								@else
+									<p style="margin:0;padding:0"><i class="glyphicon glyphicon-remove-circle">	</i> 				{1errors}</p>
+								@endif
+							</div>
 						@endif
 						<form class="form-horizontal" action="{{url('category')}}" method="post">
 						{{csrf_field()}}
@@ -58,7 +64,7 @@
     							<div class="form-group">
       								<label class="col-sm-2 control-label"> 描述</label>
       								<div class="col-sm-10">
-        								<textarea class="form-control" name="cate_discription" id="" rows="3"></textarea>
+        								<textarea class="form-control" name="cate_description" id="" rows="3"></textarea>
       								</div>
     							</div>
     							<div class="form-group">
@@ -82,9 +88,5 @@
 		</div>
 	</section>
 </div>
-<script>
-	$(function{
-		
-	})
-</script>
+
 @endsection
